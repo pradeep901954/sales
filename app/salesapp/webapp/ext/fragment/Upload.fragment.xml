@@ -1,0 +1,22 @@
+<core:FragmentDefinition xmlns:unified="sap.ui.unified" xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:macros="sap.fe.macros"  xmlns:upload="sap.m.upload">
+	<!--  <VBox id="_IDGenVBox" core:require="{ handler: 'salesapp/ext/fragment/Upload'}">
+		<Button id="_IDGenButton" text="Upload" press="handler.onPress" />
+	</VBox> -->
+	
+    <unified:FileUploader 
+        id="fileUploader"
+        core:require="{ handler: 'salesapp/ext/fragment/Upload'}"
+        uploadUrl="{handler>/uploadUrl}"
+        change="handler.onFileSelected"
+        uploadComplete="handler.onUploadCompleted"
+        fileSizeExceed="handler.onFileSizeExceeded"
+        typeMissmatch="handler.onFileTypeMismatch"
+        fileAllowed="handler.onFileAllowed">
+    </unified:FileUploader>
+
+
+	
+</core:FragmentDefinition>
+
+ 
+
