@@ -15,6 +15,10 @@ key purchaseEnquiryUuid  : UUID;
   van : String;
   division : String;
   distributionchanells : String;
+  totalPrice : String;
+  tax : String;
+  grandTotal : String;
+  quotationID : String;
   status : String;
   enquiryToFile : Composition of many Files on enquiryToFile.fileToEnquiry = $self;
   enquiryToPVehicle : Composition of many PurchareVehicle on enquiryToPVehicle.vehicleTopurchaseEnquiry = $self;
@@ -30,6 +34,11 @@ entity PurchareVehicle {
     vehicleColor : String;
     quantity : String;
     deliveryLocation : String;
+    discountedPrice : String;
+    price : String;
+    tax : String;
+    actualPrice : String;
+    discount : String default '0';
     vehicleTopurchaseEnquiry : Association to one PurchaseEnquiry on vehicleTopurchaseEnquiry.purchaseEnquiryUuid= purchaseEnquiryUuid;
   }
 
@@ -37,13 +46,14 @@ entity PurchareVehicle {
 entity Quotation {
 key quotatationUuid : UUID; 
   quotationID : String;
-  qID : String;
+  qID : String @readonly;
   purchaseEnquiryUuid  : String;
-  totalPrice : String;
-  tax : String;
-  grandTotal : String;
+  totalPrice : String @readonly;
+  tax : String @readonly;
+  grandTotal : String @readonly;
   deliveryLeadTime : String;
   validity : String;
+  quotationTOPO : Composition of one PurchaseOrder on quotationTOPO.pOToQuotation = $self;
   quotationToVehicle : Composition of many QuotationVehicle on quotationToVehicle.vehicleToQuotation = $self;
   quototionToEnquiry : Association to one PurchaseEnquiry on quototionToEnquiry.purchaseEnquiryUuid = purchaseEnquiryUuid;
 }
@@ -68,13 +78,26 @@ entity QuotationVehicle {
 }
 
 entity PurchaseOrder {
-  key poID : String;
-  quotationID : String;
+  key pUuid : UUID;
+  poID : String;
+  qID : String;
+  contactPerson : String;
+  address : String;
+  phone : String;
+  email : String;
+  salesOrder : String;
+  documentType : String;
+  companyName : String;
+  van : String;
+  division : String;
+  distributionchanells : String;
+  status : String;
   totalPrice : String;
   tax : String;
   grandTotal : String;
   deliveryLocation : String;
   pOToPOVehicle : Composition of many PurchaseOrderVehicle on pOToPOVehicle.pOVehicleTopO = $self;
+  pOToQuotation : Association to  many Quotation on pOToQuotation.qID = qID;
 }
 
 entity PurchaseOrderVehicle { 

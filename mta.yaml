@@ -1,4 +1,4 @@
-_schema-version: 3.3.0
+_schema-version: "3.1"
 ID: sales
 description: A simple CAP project.
 version: 1.0.0
@@ -7,7 +7,10 @@ modules:
   type: nodejs
   path: gen/srv
   requires:
+  - name: TLP_Connectivity
+  - name: ConnectivityServiceInstance
   - name: sales-db
+  - name: uaa_sales
   provides:
   - name: srv-api
     properties:
@@ -80,6 +83,16 @@ modules:
     - npm run build:cf
     supported-platforms: []
 resources:
+- name: TLP_Connectivity
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: destination
+    service-plan: lite
+- name: ConnectivityServiceInstance
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: connectivity
+    service-plan: lite
 - name: sales-db
   type: com.sap.xs.hdi-container
   parameters:
@@ -98,11 +111,20 @@ resources:
             ProxyType: Internet
             Type: HTTP
             URL: https://ui5.sap.com
+          - Authentication: NoAuthentication
+            HTML5.DynamicDestination: true
+            HTML5.ForwardAuthToken: true
+            Name: sales-srv-api
+            ProxyType: Internet
+            Type: HTTP
+            URL: ~{srv-api/srv-url}
           existing_destinations_policy: update
       version: 1.0.0
     service: destination
     service-name: sales-destination-service
     service-plan: lite
+  requires:
+  - name: srv-api
 - name: sales_html_repo_host
   type: org.cloudfoundry.managed-service
   parameters:

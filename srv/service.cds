@@ -4,30 +4,20 @@ service MyService {
 
     @odata.draft.enabled
     entity PurchaseEnquiry as projection on db.PurchaseEnquiry;
-    entity PurchareVehicle as projection on db.PurchareVehicle;
-     @odata.draft.bypass
-    @Common.SideEffects  : {
-        $Type : 'Common.SideEffectsType',
-        SourceProperties : [
-            'totalPrice'
-        ],
-        TargetProperties : [
-            'totalPrice','grandTotal','tax'
-        ],
-    }
-    entity Quotation as projection on db.Quotation;
     @odata.draft.bypass
-    @Common.SideEffects  : {
+     @Common.SideEffects  : {
         $Type : 'Common.SideEffectsType',
         SourceProperties : [
             'discount'
         ],
         TargetProperties : [
-            'pricePerUnit','actualPrice','discountedPrice','totalPrice','grandTotal'
+           'discountedPrice','actualPrice','price','tax'
         ],
     }
+    entity PurchareVehicle as projection on db.PurchareVehicle;
+    entity Quotation as projection on db.Quotation;
+    @odata.draft.bypass
     entity QuotationVehicle as projection on db.QuotationVehicle;
-    @odata.draft.enabled
     entity PurchaseOrder as projection on db.PurchaseOrder;
     entity PurchaseOrderVehicle as projection on db.PurchaseOrderVehicle;
     @odata.draft.enabled

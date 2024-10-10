@@ -6,16 +6,25 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
-    "@sap/cds": "^8",
-    "express": "^4",
-    "@cap-js/hana": "^1"
+    "@sap-cloud-sdk/connectivity": "^3.18.0",
+    "@sap-cloud-sdk/http-client": "^2.9.0",
+    "@sap-cloud-sdk/resilience": "^3.17.0",
+    "@sap/cds": "^7.9.4",
+    "@sap/cds-hana": "^2",
+    "@sap/xsenv": "^5.3.0",
+    "@sap/xssec": "^4.2.4",
+    "axios": "^1.7.7",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "passport": "^0.7.0"
   },
   "devDependencies": {
-    "@cap-js/cds-types": "^0.6",
     "@cap-js/sqlite": "^1",
-    "@sap/cds-dk": "^8",
-    "rimraf": "^5.0.5",
-    "@sap/ux-specification": "UI5-1.129"
+    "@sap/cds-dk": "^7",
+    "@sap/eslint-plugin-cds": "^3",
+    "@sap/ux-specification": "^1.120.17",
+    "eslint": "^9",
+    "rimraf": "^5.0.5"
   },
   "scripts": {
     "start": "cds-serve",
@@ -26,9 +35,23 @@
   },
   "cds": {
     "requires": {
-      "db" : "hana",
+      "db": "hana",
+      "auth": "dummy",
       "fiori": {
         "bypass_draft": true
+      },
+      "destinations": true,
+      "TEST_DEST1": {
+        "kind": "odata-v2",
+        "csrf": true,
+        "csrfInBatch": true,
+        "credentials": {
+          "destination": "TEST_DEST"
+        },
+        "destinationOptions": {
+          "selectionStrategy": "alwaysProvider",
+          "jwt": null
+        }
       }
     },
     "sql": {

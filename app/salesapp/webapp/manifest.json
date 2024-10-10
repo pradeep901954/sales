@@ -150,16 +150,14 @@
               "editableHeaderContent": false,
               "contextPath": "/PurchaseEnquiry",
               "variantManagement": "None",
-              "content": {
-                "body": {
-                  "sections": {
-                    "Upload": {
-                      "template": "salesapp.ext.fragment.Upload",
-                      "position": {
-                        "placement": "After",
-                        "anchor": "Qoutation"
-                      },
-                      "title": "Upload"
+              "controlConfiguration": {
+                "enquiryToVehicle/@com.sap.vocabularies.UI.v1.LineItem#VehicleDetails1": {
+                  "tableSettings": {
+                    "condensedTableLayout": false,
+                    "type": "GridTable",
+                    "widthIncludingColumnHeader": false,
+                    "quickVariantSelection": {
+                      "showCounts": true
                     }
                   }
                 }
